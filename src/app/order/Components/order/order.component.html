@@ -1,0 +1,81 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-2">السحب</div>
+  <div class="page__content shadow p-3 position-relative">
+    <a  class="btn btn-secondary m-1"  href="/OrderPage/report"> المشتركين </a>
+      <div class="py-1 mt-1">
+                <form class="" style="justify-content:center;" [formGroup]="orderData" (ngSubmit)="addOrder()">
+                   <div class="container">
+                    <div class="row">
+                      <div class="col-md-6  col-lg-6 col-sm-12 col-12">
+                          <label class="form-label" for="form3Examplev2">رقم الجوال</label>
+                          <input type="text" id="form3Examplev2" class="form-control form-control-lg"
+                            formControlName="phone"
+                            pattern="^((?:[+?0?0?966]+)(?:\s?\d{2})(?:\s?\d{7}))$"
+                            [class.is-invalid]="orderData.get('phone')?.invalid && orderData.get('phone')?.touched "/>
+                            <small class="text-danger"
+                            [class.d-none]="orderData.get('phone')?.valid || orderData.get('phone')?.untouched">
+                             مطلوب*</small>
+                             <div *ngIf="phone.errors?.['pattern']" class="text-danger">
+                              رقم التليفون غير صحيح
+                         </div>
+                        </div>
+
+                            <div class="col-md-6  col-lg-6 col-sm-12 col-12">
+                                <label class="form-label" for="form3Examplev4">كمية السحب</label>
+                                <input id="form1" min="1" name="quantity" value="1" type="number"
+                                  class="form-control form-control-sm" formControlName="quantity"
+                                  [class.is-invalid]="orderData.get('quantity')?.invalid && orderData.get('quantity')?.touched "/>
+                                  <small class="text-danger"
+                                  [class.d-none]="orderData.get('quantity')?.valid || orderData.get('quantity')?.untouched">
+                                   مطلوب*</small>
+                            </div>
+
+                            <div class="col-md-6  col-lg-6 col-sm-12 col-12">
+                              <label for="orderDate" class="form-label"> تاريخ السحب</label>
+                              <input type="date" class="form-control" id="orderDate" formControlName="orderDate"
+                              [class.is-invalid]="orderData.get('orderDate')?.invalid && orderData.get('orderDate')?.touched "/>
+
+                              <small class="text-danger"
+                              [class.d-none]="orderData.get('orderDate')?.valid || orderData.get('orderDate')?.untouched">
+                               مطلوب*</small>
+                            </div>
+
+                          <div class="col-md-6  col-lg-6 col-sm-12 col-12">
+                            <label for="inputState" class="form-label">اضافات</label>
+                            <ng-multiselect-dropdown
+                            [placeholder]="'إضافات'"
+                            [settings]="AddtionsDropdownList"
+                            [data]="additionsList"
+                            formControlName="otherAdditons">
+                           </ng-multiselect-dropdown>
+                          </div>
+                          <fieldset class="form-group border mt-5 p-3">
+                              <legend class="text-center mb-3 text-secondary px-2">نوع الوجبة</legend>
+                          <div class="col-md-6  col-lg-6 col-sm-12 col-12 m-2 d-flex">
+                            <div *ngFor="let item of mealTypesList " class="col-6 d-flex">
+                              <div >
+                             <label class="form-label m-3  p -3  "   class="btn rounded-top btn-outline-secondary" >{{item.name}}</label>
+                              </div>
+                              <div class="col-6 justify-content-center">
+                             <input class="form-control m-3 rounded-pill"   type="number"  [(ngModel)]="item.quantityMealType" [ngModelOptions]="{standalone: true}">
+                              </div>
+                            </div>
+                           </div>
+                          </fieldset>
+                            <div>
+                            </div>
+                          </div>
+                      </div>
+                    <div class="btn_container">
+                      <button type="submit"  class="btn btn-light btn-lg">اسحب</button>
+                    </div>
+                </form>
+
+              <div class="col-12 mt-5">
+                <div class="remaining_Quantity">
+                  <label class="form-label fs-2" for="form3Examplev4">  الكمية المتبقية : {{remainingQuantity}}  </label>
+                </div>
+              </div>
+              </div>
+            </div>
+      </div>
